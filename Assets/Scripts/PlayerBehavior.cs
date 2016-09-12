@@ -11,18 +11,18 @@ public class PlayerBehavior : MonoBehaviour {
 	{
 		rb = GetComponent<Rigidbody>();
 	}
-	
+
 	void FixedUpdate ()
 	{
-		if (Input.GetAxis ("Horizontal") || nput.GetAxis ("Vertical")) {
+		if (Input.anyKey) {
 			float moveHorizontal = Input.GetAxis ("Horizontal");
 			float moveVertical = Input.GetAxis ("Vertical");
 			
 			Vector3 movement = new Vector3 (moveHorizontal, 0.0f, moveVertical);
-			
 			rb.AddForce (movement * speed);
 		} else {
-
+			rb.velocity = rb.velocity * 0.9F;
+			rb.angularVelocity = rb.angularVelocity * 0.9F;
 		}
 
 	}
