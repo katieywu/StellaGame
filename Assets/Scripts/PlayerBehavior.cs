@@ -19,7 +19,8 @@ public class PlayerBehavior : MonoBehaviour {
 			float moveVertical = Input.GetAxis ("Vertical");
 			
 			Vector3 movement = new Vector3 (moveHorizontal, 0.0f, moveVertical);
-			rb.AddForce (movement * speed);
+			rb.velocity = (movement * speed);
+//			rb.AddForce (movement * speed);
 		} else {
 			rb.velocity = rb.velocity * 0.9F;
 			rb.angularVelocity = rb.angularVelocity * 0.9F;

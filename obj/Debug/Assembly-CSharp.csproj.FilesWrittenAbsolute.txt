@@ -1,0 +1,17 @@
+/Users/katieywu/Katie/Senior_Year_2016_2017/CIS568/StellaGame/Temp/bin/Debug/UnityEngine.dll
+/Users/katieywu/Katie/Senior_Year_2016_2017/CIS568/StellaGame/Temp/bin/Debug/UnityEditor.dll
+/Users/katieywu/Katie/Senior_Year_2016_2017/CIS568/StellaGame/Temp/bin/Debug/UnityEngine.UI.dll
+/Users/katieywu/Katie/Senior_Year_2016_2017/CIS568/StellaGame/Temp/bin/Debug/UnityEngine.Networking.dll
+/Users/katieywu/Katie/Senior_Year_2016_2017/CIS568/StellaGame/Temp/bin/Debug/Mono.Cecil.dll
+/Users/katieywu/Katie/Senior_Year_2016_2017/CIS568/StellaGame/Temp/bin/Debug/Unity.SerializationLogic.dll
+/Users/katieywu/Katie/Senior_Year_2016_2017/CIS568/StellaGame/Temp/bin/Debug/Unity.DataContract.dll
+/Users/katieywu/Katie/Senior_Year_2016_2017/CIS568/StellaGame/Temp/bin/Debug/ICSharpCode.NRefactory.dll
+/Users/katieywu/Katie/Senior_Year_2016_2017/CIS568/StellaGame/Temp/bin/Debug/Unity.UNetWeaver.dll
+/Users/katieywu/Katie/Senior_Year_2016_2017/CIS568/StellaGame/Temp/bin/Debug/Unity.UNetWeaver.dll.mdb
+/Users/katieywu/Katie/Senior_Year_2016_2017/CIS568/StellaGame/Temp/bin/Debug/Unity.CecilTools.dll
+/Users/katieywu/Katie/Senior_Year_2016_2017/CIS568/StellaGame/Temp/bin/Debug/Mono.Cecil.Pdb.dll
+/Users/katieywu/Katie/Senior_Year_2016_2017/CIS568/StellaGame/Temp/bin/Debug/Mono.Cecil.Mdb.dll
+/Users/katieywu/Katie/Senior_Year_2016_2017/CIS568/StellaGame/Temp/bin/Debug/Assembly-CSharp.dll.mdb
+/Users/katieywu/Katie/Senior_Year_2016_2017/CIS568/StellaGame/Temp/bin/Debug/Assembly-CSharp.dll
+/Users/katieywu/Katie/Senior_Year_2016_2017/CIS568/StellaGame/obj/Debug/Assembly-CSharp.dll
+/Users/katieywu/Katie/Senior_Year_2016_2017/CIS568/StellaGame/obj/Debug/Assembly-CSharp.dll.mdb

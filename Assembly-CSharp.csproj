@@ -45,7 +45,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\CameraFollowPlayer.cs" />
+     <Compile Include="Assets\Scripts\PlanetResponder.cs" />
      <Compile Include="Assets\Scripts\PlayerBehavior.cs" />
+     <Compile Include="Assets\Scripts\StarAttractor.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
