@@ -1,19 +1,24 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+
 
 public class PlanetResponder : MonoBehaviour {
 
-	private ArrayList starsOfInfluence = new ArrayList();
+	private List<StarAttractor> starsOfInfluence = new List<StarAttractor>();
+//	private Transform myTransform;
 
-	// Use this for initialization
 	void Start () {
+//		myTransform = transform;
+		GetComponent<Rigidbody>().useGravity = false;
+
 		Collider[] colliders = Physics.OverlapSphere(this.gameObject.transform.position, 10.0f);
 
 		int i = 0;
 		while (i < colliders.Length) {
 			if (colliders[i].gameObject.GetComponent<StarAttractor>() != null) {
 //				Debug.Log("stars nearby: "+ colliders[i].name);
-				starsOfInfluence.Add(colliders[i].gameObject);
+				starsOfInfluence.Add(colliders[i].gameObject.GetComponent<StarAttractor>());
 			} else {
 //				Debug.Log("other nearby: "+ colliders[i].name);
 			}
@@ -23,6 +28,10 @@ public class PlanetResponder : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+		
+		for (int i = 0; i < starsOfInfluence.Count; i++) {
+			starsOfInfluence[i].Attract(gameObject);
+		}
+		
 	}
 }

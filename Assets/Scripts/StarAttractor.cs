@@ -3,13 +3,14 @@ using System.Collections;
 
 public class StarAttractor : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-	
+	public float gravity = -10;
+
+	public void Start() {
+		GetComponent<Rigidbody>().useGravity = false;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+	public void Attract(GameObject planet) {
+		Vector3 gravityUp = (planet.transform.position - transform.position).normalized;
+		planet.GetComponent<Rigidbody>().AddForce(gravityUp * gravity);
+		Debug.Log("vec " + (gravityUp));
 	}
 }
