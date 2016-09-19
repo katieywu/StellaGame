@@ -28,12 +28,12 @@ public class PlanetResponder : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		foreach (StarAttractor star in starsOfInfluence) {
-			star.Attract(gameObject);
-		}
+//		foreach (StarAttractor star in starsOfInfluence) {
+//			star.Attract(gameObject);
+//		}
 
 
-//		transform.position = calculateCentroid();
+		transform.position = calculateCentroid();
 
 	}
 
