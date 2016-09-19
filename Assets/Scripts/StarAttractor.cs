@@ -23,7 +23,6 @@ public class StarAttractor : MonoBehaviour {
 		foreach(PlanetResponder p in influencedPlanets) {
 			p.UpdateCenterOfMass(this);
 		}
-//		Debug.Log("CLICKED STAR: " + name);
 	}
 
 	public void RemoveAttractedPlanet(PlanetResponder planet) {

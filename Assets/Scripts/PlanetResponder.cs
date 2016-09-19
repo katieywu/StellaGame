@@ -6,7 +6,7 @@ using System.Collections.Generic;
 public class PlanetResponder : MonoBehaviour {
 
 	private HashSet<StarAttractor> starsOfInfluence = new HashSet<StarAttractor>();
-	public GameObject wormhole;
+	public GameObject closestObject;
 
 	private Rigidbody rb;
 	private float movementSpeed = 10f;
@@ -15,38 +15,27 @@ public class PlanetResponder : MonoBehaviour {
 		rb = GetComponent<Rigidbody>();
 		rb.useGravity = false;
 
-		Collider[] colliders = Physics.OverlapSphere(this.gameObject.transform.position, 10.0f);
-
-		int i = 0;
-		while (i < colliders.Length) {
-			if (colliders[i].gameObject.GetComponent<StarAttractor>() != null) {
-//				Debug.Log("stars nearby: "+ colliders[i].name);
-				starsOfInfluence.Add(colliders[i].gameObject.GetComponent<StarAttractor>());
-			} else {
-//				Debug.Log("other nearby: "+ colliders[i].name);
-			}
-			i++;
-		}
+		calculateNearbyStars();
 	}
 	
-	// Update is called once per frame
+	// FixedUpdate is called once per frame
 	void FixedUpdate () {
 
-		foreach (StarAttractor star in starsOfInfluence) {
-			star.Attract(gameObject);
-		}
-
+		//ANIMATE IT TO THE WORMHOLE
 		if (rb.isKinematic) {
-			//calculate the right position to move to
-			Vector3 wormPos = wormhole.transform.position;
-			wormPos.z = wormPos.z - wormhole.transform.localScale.z;
+			Vector3 wormPos = closestObject.transform.position;
+			wormPos.z = wormPos.z - closestObject.transform.localScale.z;
 
 
 			if (Vector3.Distance(wormPos, rb.position) > 0.3) {
 				Vector3 direction = (wormPos - transform.position).normalized;
 				rb.MovePosition(transform.position + direction * movementSpeed * Time.deltaTime);
-				Debug.Log("target pos: "+ wormPos);
-				Debug.Log("planet pos: "+ rb.position);
+//				Debug.Log("target pos: "+ wormPos);
+//				Debug.Log("planet pos: "+ rb.position);
+			}
+		} else { //this means the planet is NOT in the trigger, so use physics forces on it
+			foreach (StarAttractor star in starsOfInfluence) {
+				star.Attract(gameObject);
 			}
 		}
 
@@ -55,6 +44,41 @@ public class PlanetResponder : MonoBehaviour {
 
 	}
 
+	void calculateNearbyStars() {
+		Collider[] colliders = Physics.OverlapSphere(this.gameObject.transform.position, 10.0f);
+
+		int i = 0;
+		while (i < colliders.Length) {
+			if (colliders[i].gameObject.GetComponent<StarAttractor>() != null) {
+				//				Debug.Log("stars nearby: "+ colliders[i].name);
+				starsOfInfluence.Add(colliders[i].gameObject.GetComponent<StarAttractor>());
+			} else {
+				//				Debug.Log("other nearby: "+ colliders[i].name);
+			}
+			i++;
+		}
+	}
+
+	public void UpdateCenterOfMass(StarAttractor star) {
+		starsOfInfluence.Remove(star);
+	}
+
+	public void MoveToWormholeTrigger(GameObject closest) {
+		rb.isKinematic = true;
+
+		closestObject = closest;
+		Debug.Log("closest: " + closestObject.name);
+
+		//remove the planet from each STAR's array
+		foreach (StarAttractor star in starsOfInfluence) {
+			star.RemoveAttractedPlanet(this);
+		}
+			
+		starsOfInfluence.Clear();
+		GetComponent<Collider>().enabled = false;
+	}
+
+	//-----------------LESS IMPORTANT/NOT REALLY USED FUNCTIONS BELOW------------------//
 	Vector3 calculateCentroid() {
 		Vector3 centerOfMass = Vector3.zero;
 		float c = 0f;
@@ -71,22 +95,5 @@ public class PlanetResponder : MonoBehaviour {
 
 		centerOfMass /= c;
 		return centerOfMass;
-	}
-
-	public void UpdateCenterOfMass(StarAttractor star) {
-		starsOfInfluence.Remove(star);
-	}
-
-	public void MoveToWormholeTrigger() {
-		Debug.Log("movetowormhol called");
-		rb.isKinematic = true;
-
-		//remove the planet from each STAR's array
-		foreach (StarAttractor star in starsOfInfluence) {
-			star.RemoveAttractedPlanet(this);
-		}
-			
-		starsOfInfluence.Clear();
-		GetComponent<Collider>().enabled = false;
 	}
 }
