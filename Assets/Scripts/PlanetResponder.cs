@@ -9,7 +9,7 @@ public class PlanetResponder : MonoBehaviour {
 	public GameObject wormhole;
 
 	private Rigidbody rb;
-	private float movementSpeed = 5f;
+	private float movementSpeed = 10f;
 
 	void Start () {
 		rb = GetComponent<Rigidbody>();
@@ -41,12 +41,13 @@ public class PlanetResponder : MonoBehaviour {
 			Vector3 wormPos = wormhole.transform.position;
 			wormPos.z = wormPos.z - wormhole.transform.localScale.z;
 
-//			Debug.Log("target pos: "+ wormPos);
 
-			Vector3 direction = (wormPos - transform.position).normalized;
-			rb.MovePosition(transform.position + direction * movementSpeed * Time.deltaTime);
-
-//			Debug.Log("planet pos: "+ rb.position);
+			if (Vector3.Distance(wormPos, rb.position) > 0.3) {
+				Vector3 direction = (wormPos - transform.position).normalized;
+				rb.MovePosition(transform.position + direction * movementSpeed * Time.deltaTime);
+				Debug.Log("target pos: "+ wormPos);
+				Debug.Log("planet pos: "+ rb.position);
+			}
 		}
 
 		//CENTROID BASED GRAVITY POSITION
