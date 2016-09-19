@@ -6,10 +6,14 @@ using System.Collections.Generic;
 public class PlanetResponder : MonoBehaviour {
 
 	private HashSet<StarAttractor> starsOfInfluence = new HashSet<StarAttractor>();
-//	private List<StarAttractor> starsOfInfluence = new List<StarAttractor>();
+	public GameObject wormhole;
+
+	private Rigidbody rb;
+	private float movementSpeed = 5f;
 
 	void Start () {
-		GetComponent<Rigidbody>().useGravity = false;
+		rb = GetComponent<Rigidbody>();
+		rb.useGravity = false;
 
 		Collider[] colliders = Physics.OverlapSphere(this.gameObject.transform.position, 10.0f);
 
@@ -26,14 +30,27 @@ public class PlanetResponder : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 
-//		foreach (StarAttractor star in starsOfInfluence) {
-//			star.Attract(gameObject);
-//		}
+		foreach (StarAttractor star in starsOfInfluence) {
+			star.Attract(gameObject);
+		}
 
+		if (rb.isKinematic) {
+			//calculate the right position to move to
+			Vector3 wormPos = wormhole.transform.position;
+			wormPos.z = wormPos.z - wormhole.transform.localScale.z;
 
-		transform.position = calculateCentroid();
+//			Debug.Log("target pos: "+ wormPos);
+
+			Vector3 direction = (wormPos - transform.position).normalized;
+			rb.MovePosition(transform.position + direction * movementSpeed * Time.deltaTime);
+
+//			Debug.Log("planet pos: "+ rb.position);
+		}
+
+		//CENTROID BASED GRAVITY POSITION
+//		transform.position = calculateCentroid();
 
 	}
 
@@ -48,8 +65,8 @@ public class PlanetResponder : MonoBehaviour {
 		}
 
 		//add yourself to the centroid calculation
-		centerOfMass += GetComponent<Rigidbody>().worldCenterOfMass * GetComponent<Rigidbody>().mass;
-		c += GetComponent<Rigidbody>().mass;
+		centerOfMass += rb.worldCenterOfMass * GetComponent<Rigidbody>().mass;
+		c += rb.mass;
 
 		centerOfMass /= c;
 		return centerOfMass;
@@ -57,5 +74,18 @@ public class PlanetResponder : MonoBehaviour {
 
 	public void UpdateCenterOfMass(StarAttractor star) {
 		starsOfInfluence.Remove(star);
+	}
+
+	public void MoveToWormholeTrigger() {
+		Debug.Log("movetowormhol called");
+		rb.isKinematic = true;
+
+		//remove the planet from each STAR's array
+		foreach (StarAttractor star in starsOfInfluence) {
+			star.RemoveAttractedPlanet(this);
+		}
+			
+		starsOfInfluence.Clear();
+		GetComponent<Collider>().enabled = false;
 	}
 }

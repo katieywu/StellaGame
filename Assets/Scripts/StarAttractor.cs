@@ -25,4 +25,8 @@ public class StarAttractor : MonoBehaviour {
 		}
 //		Debug.Log("CLICKED STAR: " + name);
 	}
+
+	public void RemoveAttractedPlanet(PlanetResponder planet) {
+		influencedPlanets.Remove(planet);
+	}
 }

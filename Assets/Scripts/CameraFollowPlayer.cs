@@ -25,9 +25,5 @@ public class CameraFollowPlayer : MonoBehaviour {
 		position.x = targetPos.x;
 
 		this.gameObject.transform.position = position;
-//		cameraTransform.position.z = new Vector3 (target.position.x, target.position.y, target.position.z - distanceZ);
-//		cameraTransform.position.y = new Vector3 (target.position.x, target.position.y - distanceY, target.position.z);
-//		cameraTransform.position.x = new Vector3 (target.position.x, target.position.y, target.position.z);
-
 	}
 }
